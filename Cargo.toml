@@ -1,0 +1,16 @@
+[package]
+name = "sparier_os"
+version = "0.1.0"
+authors = [ 
+    "Julian Pritzi <julian.pritzi@gmail.com>",
+    "Jonas Zöschg <contact@jonaszoeschg.com>",
+]
+edition = "2018"
+
+# The features section is used for conditional compilation
+[features]
+default = []
+# Board Selection
+bsp_virt = []
+# CPU Selection
+arch_riscv64gc = []

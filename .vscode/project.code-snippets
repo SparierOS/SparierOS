@@ -1,0 +1,11 @@
+{
+	/* A List of project specific Snippets that might be usefull */
+	"Add MIT License": {
+		"prefix": "//m",
+		"body": [
+			"// SPDX-License-Identifier: MIT",
+			"",
+			"$1"
+		]
+	},
+}

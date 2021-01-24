@@ -1,0 +1,40 @@
+{
+  /* Settings so rust-analyzer works correctly with our code */
+  "rust-analyzer.cargo.target": "riscv64gc-unknown-none-elf",
+  "rust-analyzer.cargo.features": [
+    "bsp_virt",
+    "arch_riscv64gc"
+  ],
+  /* Enforce formatting on save */
+  "editor.formatOnSave": true,
+  /* Custom styling of comments to better fit our commenting style */
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#229977",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "/",
+      "color": "#229977",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+  ]
+}
