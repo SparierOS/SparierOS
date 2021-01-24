@@ -4,15 +4,9 @@
 
 use crate::{bsp, memory};
 
-/// Clears the .bss section, by filling it with 0s
-///
-/// # Safety
-///
-/// - Must be called before any use of the bss section
-#[inline(always)]
-unsafe fn clear_bss() {
-    memory::zero_volatile(bsp::memory::bss_range());
-}
+//------------------------------------------------------------------------------
+//- Functions
+//------------------------------------------------------------------------------
 
 /// Sets up a minimal runtime for the kernel
 ///
@@ -24,4 +18,14 @@ pub unsafe fn runtime_init() -> ! {
     clear_bss();
 
     crate::kernel_init()
+}
+
+/// Clears the .bss section, by filling it with 0s
+///
+/// # Safety
+///
+/// - Must be called before any use of the bss section
+#[inline(always)]
+unsafe fn clear_bss() {
+    memory::zero_volatile(bsp::memory::bss_range());
 }

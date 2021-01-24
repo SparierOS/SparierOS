@@ -2,7 +2,11 @@
 
 //! Driver Manager for Virt Device
 
-use crate::driver;
+use crate::driver::interface::{DeviceDriver, DriverManager};
+
+//------------------------------------------------------------------------------
+//- Symbols
+//------------------------------------------------------------------------------
 
 /// Singleton for Driver Management
 static VIRT_DRIVER_MANAGER: VirtDriverManager = VirtDriverManager {
@@ -10,20 +14,30 @@ static VIRT_DRIVER_MANAGER: VirtDriverManager = VirtDriverManager {
     device_drivers: [&super::UART],
 };
 
+//------------------------------------------------------------------------------
+//- Structs
+//------------------------------------------------------------------------------
+
 /// Wraps driver list & driver management functions
 struct VirtDriverManager {
     device_drivers: [&'static (dyn DeviceDriver + Sync); 1],
 }
 
-use driver::interface::DeviceDriver;
+//------------------------------------------------------------------------------
+//- Struct Implementations
+//------------------------------------------------------------------------------
 
-impl driver::interface::DriverManager for VirtDriverManager {
+impl DriverManager for VirtDriverManager {
     fn list_drivers(&self) -> &[&'static (dyn DeviceDriver + Sync)] {
         &self.device_drivers[..]
     }
 }
 
+//------------------------------------------------------------------------------
+//- Functions
+//------------------------------------------------------------------------------
+
 /// Get driver manager for this board
-pub fn driver_manager() -> &'static impl driver::interface::DriverManager {
+pub fn driver_manager() -> &'static impl DriverManager {
     &VIRT_DRIVER_MANAGER
 }

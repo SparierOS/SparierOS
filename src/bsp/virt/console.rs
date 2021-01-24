@@ -4,6 +4,10 @@
 
 use crate::{bsp::device_driver, console};
 
+//------------------------------------------------------------------------------
+//- Functions
+//------------------------------------------------------------------------------
+
 /// Create a new emergency output driver so the panic function may print some debug information
 ///
 /// Safety:

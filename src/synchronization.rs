@@ -15,6 +15,10 @@ pub mod interface {
     }
 }
 
+//------------------------------------------------------------------------------
+//- Structs
+//------------------------------------------------------------------------------
+
 // TODO: replace with actual lock, this works only as long we have no paralellism
 /// Pseudo Lock, pretending to give exclusive access
 pub struct NoLock<T>
@@ -23,6 +27,10 @@ where
 {
     data: UnsafeCell<T>,
 }
+
+//------------------------------------------------------------------------------
+//- Struct Implementations
+//------------------------------------------------------------------------------
 
 impl<T> NoLock<T> {
     /// Create a wrapper for data

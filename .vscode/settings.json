@@ -28,6 +28,15 @@
       "italic": false
     },
     {
+      "tag": "-",
+      "color": "#A0A0A0",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
       "tag": "todo",
       "color": "#FF8C00",
       "strikethrough": false,

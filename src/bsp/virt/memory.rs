@@ -4,11 +4,19 @@
 
 use core::{cell::UnsafeCell, ops::RangeInclusive};
 
+//------------------------------------------------------------------------------
+//- Symbols
+//------------------------------------------------------------------------------
+
 // Symbols from the linker script.
 extern "Rust" {
     static __bss_start: UnsafeCell<u64>;
     static __bss_end: UnsafeCell<u64>;
 }
+
+//------------------------------------------------------------------------------
+//- Functions
+//------------------------------------------------------------------------------
 
 /// Returns the range of the .bss section
 pub fn bss_range() -> RangeInclusive<*mut u64> {

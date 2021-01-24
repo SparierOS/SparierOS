@@ -2,9 +2,12 @@
 
 //! The custom Panic Handler of the OS
 
+use crate::{bsp, console};
 use core::panic::PanicInfo;
 
-use crate::{bsp, console};
+//------------------------------------------------------------------------------
+//- Functions
+//------------------------------------------------------------------------------
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {

@@ -29,6 +29,23 @@ These are the steps to set up the recommended development enviorment, for this p
 
 ## Project Structure
 
+### Files Structures
+
+A rust file should be structured as follows when possible, every section should have a header-comment as long as it is not empty.
+Public structs and public functions are declared above private ones, and the implementations appear in the order of the struct declarations. (for an example see `src/bsp/device_driver/uart16550.rs`)
+
+1. Section for Symbols
+    * static values
+1. Section for Structs
+    * public structs
+    * private structs
+1. Section for Struct implementations
+    * impl blocks
+    * impl traits
+1. Functions
+    * public functions
+    * private functions
+
 ### Modules
 
 The project is divided into different modules, each one responsible for a different key task or component of the OS.
