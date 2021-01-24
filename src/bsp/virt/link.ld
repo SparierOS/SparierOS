@@ -30,6 +30,8 @@ SECTIONS {
         *(.rodata .rodata.*)
     } >ram AT>ram :text
 
+    PROVIDE(__global_pointer = .);
+
     .rodata : {
         *(.rodata .rodata.*)
     } >ram AT>ram :text
@@ -40,8 +42,19 @@ SECTIONS {
     } >ram AT>ram :data
 
     .bss ALIGN(8): {
+        PROVIDE(__bss_start = .);
         *(.sbss .sbss.*) *(.bss .bss.*)
+
+        /* Make sure BSS is never empty */
+        . += 8;
         . = ALIGN(8);
+        PROVIDE(__bss_end = .);
     } >ram AT>ram :bss
     
+    /* NOTE: stacks grows from higher to lower memory, for now fixed 524 KiB should do */
+    PROVIDE(__stack_top    = ORIGIN(ram) + LENGTH(ram));
+    PROVIDE(__stack_bottom = __stack_top - 0x80000);
+
+    PROVIDE(__heap_start = __bss_end);
+    PROVIDE(__heap_end   = __stack_bottom);
 }
