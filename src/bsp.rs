@@ -2,6 +2,8 @@
 
 //! Conditional re-exporting of Board Support Packages
 
+mod device_driver;
+
 #[cfg(feature = "bsp_virt")]
 mod virt;
 

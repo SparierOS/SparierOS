@@ -12,7 +12,7 @@ _start:
     
     csrw	satp, zero          // disable address translation
 
-.option push                    // inizialise the gp register which is usually constant, with 
+.option push                    // initialize the gp register which is usually constant, with 
 .option norelax                 // relaxion this might get replaced by `mov gp,gp` 
     la		gp, __global_pointer
 .option pop
