@@ -8,6 +8,11 @@ use core::{cell::UnsafeCell, ops::RangeInclusive};
 //- Symbols
 //------------------------------------------------------------------------------
 
+/// Memory Map of this board
+pub(super) mod map {
+    pub const UART_MMIO: *mut u8 = 0x1000_0000 as *mut u8;
+}
+
 // Symbols from the linker script.
 extern "Rust" {
     static __bss_start: UnsafeCell<u64>;

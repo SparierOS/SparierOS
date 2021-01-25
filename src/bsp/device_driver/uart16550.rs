@@ -3,11 +3,14 @@
 //! Driver for the Uart 16550
 
 use crate::{
+    console::interface::FullConsole,
     driver::interface::DeviceDriver,
     synchronization::{interface::Mutex, NoLock},
 };
-use core::convert::TryInto;
-use core::fmt::{Error, Write};
+use core::{
+    convert::TryInto,
+    fmt::{Error, Write},
+};
 
 //------------------------------------------------------------------------------
 //- Structs
@@ -41,7 +44,7 @@ impl UartDevice {
 }
 
 // make UartDevice usable as a console
-impl crate::console::interface::All for UartDevice {
+impl FullConsole for UartDevice {
     fn write_fmt(&self, args: core::fmt::Arguments<'_>) {
         self.uart.lock(|device| device.write_fmt(args)).unwrap();
     }

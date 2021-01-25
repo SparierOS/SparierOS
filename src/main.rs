@@ -25,13 +25,7 @@ mod synchronization;
 ///
 /// - Only one hart must be active
 unsafe fn kernel_init() -> ! {
-    use driver::interface::DriverManager;
-
-    for device in bsp::driver::driver_manager().list_drivers().iter() {
-        if let Err(msg) = device.init() {
-            panic!("Could not initialize driver: {}: {}", device.name(), msg);
-        }
-    }
+    driver::init();
 
     kernel_main()
 }

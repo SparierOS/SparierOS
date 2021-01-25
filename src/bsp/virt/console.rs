@@ -2,7 +2,8 @@
 
 //! Console support for the Virt device
 
-use crate::{bsp::device_driver, console};
+use super::memory;
+use crate::{bsp::device_driver, console::interface::FullConsole};
 
 //------------------------------------------------------------------------------
 //- Functions
@@ -12,15 +13,15 @@ use crate::{bsp::device_driver, console};
 ///
 /// Safety:
 /// - must only be used by the panic function when crashing the kernel
-pub unsafe fn panic_console() -> impl console::interface::All {
+pub unsafe fn panic_console() -> impl FullConsole {
     use crate::driver::interface::DeviceDriver;
 
-    let uart = device_driver::UartDevice::new(0x1000_0000 as *mut u8);
+    let uart = device_driver::UartDevice::new(memory::map::UART_MMIO);
     uart.init().unwrap();
     uart
 }
 
 /// Return a reference to the console
-pub fn console() -> &'static impl console::interface::All {
+pub fn console() -> &'static impl FullConsole {
     &super::UART
 }

@@ -8,7 +8,7 @@ use core::fmt;
 /// Console interfaces
 pub mod interface {
     /// This trait is required for a device or other struct to be used as the OS console
-    pub trait All {
+    pub trait FullConsole {
         fn write_fmt(&self, args: core::fmt::Arguments<'_>);
     }
 }
@@ -19,7 +19,7 @@ pub mod interface {
 
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments<'_>) {
-    use crate::console::interface::All;
+    use crate::console::interface::FullConsole;
 
     bsp::console::console().write_fmt(args);
 }
