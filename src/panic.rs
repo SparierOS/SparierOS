@@ -16,7 +16,7 @@ fn panic(info: &PanicInfo) -> ! {
     unsafe {
         use crate::console::interface::FullConsole;
 
-        bsp::console::panic_console().write_fmt(format_args_nl!("{:?}", info));
+        bsp::console::panic_console().write_fmt(format_args_nl!("{}", info));
     }
 
     // Safety: this code does not interfere with anything else
