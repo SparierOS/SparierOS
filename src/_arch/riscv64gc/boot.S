@@ -22,9 +22,9 @@ _start:
     
     // Use traps to jump into Rust
     // We set the `previous` fields because those will be set if we call `mret` a few lines down
-    // 0b01 << 11   MPP (Previous Protection Mode) is 2 (M mode)
-    li		t0, 0b01 << 11
-    csrw    mstatus, t0
+    // 0b11 << 11   MPP (Previous Protection Mode) is 3 (M mode)
+    li		t0, 0b11 << 11
+    csrrs   x0, mstatus, t0
     // Programm counter is set to `runtime_init()` declared in `src/runtime.rs`
     la      t0, runtime_init
     csrw	mepc, t0
