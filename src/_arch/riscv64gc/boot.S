@@ -19,12 +19,27 @@ _start:
 
     // Setup the Stack
     la      sp, __stack_top
+
+    // Setup machine trap vector
+    la      t0, machine_trap_handler
+    csrw    mtvec, t0
+    
+    // Give S and U mode access to memory
+    csrw pmpcfg0, 0xF
+    li t0, -1
+    csrw pmpaddr0, t0
     
     // Use traps to jump into Rust
     // We set the `previous` fields because those will be set if we call `mret` a few lines down
-    // 0b01 << 11   MPP (Previous Protection Mode) is 2 (M mode)
+    // 0b01 << 11   MPP (Previous Protection Mode) is 1 (S mode)
+    li		t0, 0b11 << 11
+    csrrc   x0, mstatus, t0
     li		t0, 0b01 << 11
-    csrw    mstatus, t0
+    csrrs   x0, mstatus, t0 // Clear and set to avoid changing other fields
+    // Setup trap delegation
+    li		t0, 0xffff
+    csrw    medeleg, t0 // Delegate all exceptions for now
+    csrw    mideleg, t0 // Delegate all interrupts for now
     // Programm counter is set to `runtime_init()` declared in `src/runtime.rs`
     la      t0, runtime_init
     csrw	mepc, t0
@@ -35,4 +50,8 @@ _start:
 3:  // endless loop
     wfi                         // wait for interrupt 
     j       3b                  // jump back to loop start
-    
+
+.align 4 // Alignment requirements are implementation defined (4 is the minimum)
+machine_trap_handler:
+    j 3b
+
