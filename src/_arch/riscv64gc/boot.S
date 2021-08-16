@@ -24,6 +24,11 @@ _start:
     la      t0, machine_trap_handler
     csrw    mtvec, t0
     
+    // Give S and U mode access to memory
+    csrw pmpcfg0, 0xF
+    li t0, -1
+    csrw pmpaddr0, t0
+    
     // Use traps to jump into Rust
     // We set the `previous` fields because those will be set if we call `mret` a few lines down
     // 0b01 << 11   MPP (Previous Protection Mode) is 1 (S mode)
